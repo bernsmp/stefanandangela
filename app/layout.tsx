@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { AuthGuard } from "@/components/auth/AuthGuard";
 
 const fraunces = Fraunces({
   variable: "--font-display",
@@ -36,7 +37,7 @@ export default function RootLayout({
         className={`${fraunces.variable} ${dmSans.variable} ${jetbrainsMono.variable} antialiased bg-white`}
         style={{ fontFamily: 'var(--font-body), system-ui, sans-serif' }}
       >
-        {children}
+        <AuthGuard>{children}</AuthGuard>
       </body>
     </html>
   );
