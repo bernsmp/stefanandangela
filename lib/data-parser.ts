@@ -331,7 +331,7 @@ function extractList(content: string, sectionName: string): string[] | undefined
  */
 function extractEvidenceInstances(content: string): string[] | undefined {
   const instances: string[] = [];
-  const instanceMatches = content.matchAll(/\*\*Instance\s*\d+[^*]*\*\*[:\s]*([^*]+?)(?=\*\*Instance|\*\*Frequency|$)/gis);
+  const instanceMatches = content.matchAll(/\*\*Instance\s*\d+[^*]*\*\*[:\s]*([\s\S]+?)(?=\*\*Instance|\*\*Frequency|$)/gi);
   
   for (const match of instanceMatches) {
     instances.push(match[1].trim());
