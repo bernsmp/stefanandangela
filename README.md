@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stefan and Angela Leadership Dashboard
+
+A professional, interactive dashboard displaying Cognitive Fingerprint data for Stefan and Angela, plus their Leadership Interface Map.
+
+## Features
+
+- **Leadership Interface Map**: Hero section showcasing how Stefan and Angela work together
+- **Individual Fingerprints**: Interactive views for both Stefan and Angela's cognitive fingerprints
+- **Comparison View**: Side-by-side comparison highlighting similarities and differences
+- **Interactive Elements**: 
+  - Search functionality
+  - Expandable sections
+  - Hover tooltips
+  - Smooth animations
+  - Responsive design
+
+## Technology Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
-
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add your markdown data files to the `data/` directory:
+   - `stefan-fingerprint.md`
+   - `angela-fingerprint.md`
+   - `leadership-interface-map.md`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+dashboard/
+├── app/
+│   ├── api/data/          # API routes for data loading
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Main dashboard page
+├── components/
+│   ├── dashboard/          # Dashboard-specific components
+│   ├── layout/             # Layout components (Header, Footer)
+│   └── ui/                 # Reusable UI components
+├── data/                   # Markdown data files
+├── lib/                    # Utilities and data parsers
+└── public/                 # Static assets
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Brand Colors
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The dashboard uses Cognitive Fingerprint brand colors:
+- Primary gradient: Golden (#fbbf24) to Orange (#f97316)
+- Background: White
+- Text: Dark gray (#1f2937)
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The dashboard is ready for deployment on Vercel:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+```
+
+Then deploy to Vercel or your preferred hosting platform.
