@@ -142,11 +142,11 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
       const frequencyData = freqMatch ? freqMatch[1].trim() : undefined;
 
       // Extract strategic value
-      const stratMatch = section.content.match(/\*\*Strategic Value:\*\*\s*([^*]+?)(?=\*\*|$)/is);
+      const stratMatch = section.content.match(/\*\*Strategic Value:\*\*\s*([\s\S]*?)(?=\*\*|$)/i);
       const strategicValue = stratMatch ? stratMatch[1].trim().split('\n')[0] : undefined;
 
       // Extract blind spot risk
-      const blindMatch = section.content.match(/\*\*(?:Blind Spot|Cost|Risk).*?:\*\*\s*([^*]+?)(?=\*\*|$)/is);
+      const blindMatch = section.content.match(/\*\*(?:Blind Spot|Cost|Risk)[\s\S]*?:\*\*\s*([\s\S]*?)(?=\*\*|$)/i);
       const blindSpotRisk = blindMatch ? blindMatch[1].trim().split('\n')[0] : undefined;
 
       // Use original pattern number from match, or generate one
