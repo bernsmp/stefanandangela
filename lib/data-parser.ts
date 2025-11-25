@@ -298,7 +298,7 @@ function extractSection(content: string, sectionName: string): string | undefine
  * Extract description (usually the first paragraph after **Pattern Description:**)
  */
 function extractDescription(content: string): string {
-  const descMatch = content.match(/\*\*Pattern Description:\*\*\s*(.+?)(?=\*\*|$)/is);
+  const descMatch = content.match(/\*\*Pattern Description:\*\*\s*([\s\S]+?)(?=\*\*|$)/i);
   if (descMatch) return descMatch[1].trim();
   
   // Fallback: first non-empty paragraph
