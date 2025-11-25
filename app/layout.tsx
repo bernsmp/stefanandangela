@@ -24,12 +24,13 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Cognitive Fingerprint™ | Stefan & Angela Leadership Dashboard",
   description: "Interactive visualization of cognitive patterns, blind spots, and leadership interface dynamics",
+  metadataBase: new URL('https://dashboard-tau-mauve-75.vercel.app'),
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon', type: 'image/png', sizes: '32x32' },
     ],
-    apple: '/apple-icon.png',
+    apple: '/apple-icon',
   },
   openGraph: {
     title: 'Cognitive Fingerprint™ | Leadership Interface Map',
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'Cognitive Fingerprint™',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://dashboard-tau-mauve-75.vercel.app/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Cognitive Fingerprint - Stefan & Angela Leadership Dashboard',
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Cognitive Fingerprint™ | Leadership Interface Map',
     description: 'How Stefan & Angela think differently, where they create synergy, and the protocols that multiply their effectiveness.',
-    images: ['/og-image.png'],
+    images: ['https://dashboard-tau-mauve-75.vercel.app/og-image.png'],
   },
 };
 
