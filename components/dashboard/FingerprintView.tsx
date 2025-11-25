@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Zap, Lightbulb, BookOpen, Brain, X } from 'lucide-react';
 import { PatternCard, PatternType } from './PatternCard';
 import { FingerprintData, FingerprintSection } from '@/lib/data-parser';
+import { findPatternDetails } from '@/lib/angela-patterns';
 import Image from 'next/image';
 
 interface FingerprintViewProps {
@@ -34,13 +35,14 @@ const typeFilters = [
 ];
 
 // Extract patterns from the markdown sections
-function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedPattern[] {
+function extractPatternsFromSections(sections: FingerprintSection[], personName: string = ''): ExtractedPattern[] {
   const patterns: ExtractedPattern[] = [];
   let currentType: PatternType = 'procedural';
   const seenPatternNames = new Set<string>();
+  const isAngela = personName.toLowerCase() === 'angela';
 
   // First, try to extract patterns from table format (Angela's format)
-  function extractFromTable(content: string): ExtractedPattern[] {
+  function extractFromTable(content: string, isAngela: boolean = false): ExtractedPattern[] {
     const tablePatterns: ExtractedPattern[] = [];
     // Match table rows with pattern data: | # | Pattern Name | Category | Self-Reported? |
     const tableRowRegex = /\|\s*(\d+)\s*\|\s*([^|]+)\s*\|\s*(Procedural|Conditional|Declarative|Metacognitive)\s*\|/gi;
@@ -54,11 +56,19 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
       
       if (!seenPatternNames.has(nameKey)) {
         seenPatternNames.add(nameKey);
+        
+        // For Angela, try to find detailed pattern data
+        const details = isAngela ? findPatternDetails(name) : undefined;
+        
         tablePatterns.push({
           id,
           name,
           type: category,
-          description: `${name} - ${category} pattern identified through behavioral analysis.`,
+          description: details?.description || `${name} pattern identified through behavioral analysis.`,
+          frequencyData: details?.frequencyData || details?.processingSpeed,
+          evidenceQuote: details?.evidenceQuote,
+          strategicValue: details?.strategicValue,
+          blindSpotRisk: details?.blindSpotRisk,
         });
       }
     }
@@ -81,7 +91,7 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
     // Check for table-formatted patterns (Angela's format)
     if (section.content.includes('| # | Pattern Name |') || 
         section.content.includes('Pattern Name | Category')) {
-      const tablePatterns = extractFromTable(section.content);
+      const tablePatterns = extractFromTable(section.content, isAngela);
       patterns.push(...tablePatterns);
     }
 
@@ -194,7 +204,7 @@ export const FingerprintView: React.FC<FingerprintViewProps> = ({
   }, []);
 
   // Extract patterns from the data
-  const patterns = useMemo(() => extractPatternsFromSections(data.sections), [data.sections]);
+  const patterns = useMemo(() => extractPatternsFromSections(data.sections, name), [data.sections, name]);
 
   // Filter patterns
   const filteredPatterns = useMemo(() => {
