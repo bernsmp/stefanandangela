@@ -122,7 +122,7 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
         : section.content.split('\n\n')[0]?.replace(/\*\*/g, '').replace(/\|.*\|/g, '').trim() || '';
 
       // Extract execution sequence
-      const execMatch = section.content.match(/\*\*Execution Sequence:\*\*([^*]+?)(?=\*\*|$)/is);
+      const execMatch = section.content.match(/\*\*Execution Sequence:\*\*([\s\S]*?)(?=\*\*|$)/i);
       const executionSequence = execMatch
         ? execMatch[1].split('\n')
             .map(line => line.replace(/^\d+\.\s*/, '').trim())
