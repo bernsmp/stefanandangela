@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="2881882">
+  <path fill="#ffffff" d="M55 415V153.67C55 137.839 67.831 125 83.67 125h352.66c15.832 0 28.67 12.831 28.67 28.67V415c-7.319 0-106.014 19.663-205 19.663C165.577 434.663 70.889 415 55 415z" class="colore3f5ff svgShape"></path>
+  <path fill="#ffc34d" d="M365 245v40h-50v-30l-6.667-20v-30L315 195c27.552 0 50 22.345 50 50zm-160 10v30h-50v-40c0-27.656 22.448-50 50-50l6.667 10v30L205 255z" class="colorff4d4d svgShape"></path>
+  <path fill="#f0e2c5" d="M365 170h55v250h10V165a5 5 0 0 0-5-5h-60a5 5 0 1 0 0 10zM100 420V170h55a5 5 0 1 0 0-10H95a5 5 0 0 0-5 5v255h10zm145-70a5 5 0 0 1-5-5v-90a5 5 0 1 1 10 0v90a5 5 0 0 1-5 5zm40 70a5 5 0 0 1-5-5v-90a5 5 0 1 1 10 0v90a5 5 0 0 1-5 5z" class="colorc5e6f0 svgShape"></path>
+  <path fill="#000000" d="M495 415c0 33.079-26.793 60-60 60H85c-33.14 0-60-26.86-60-60h470z" class="color3b6bab svgShape"></path>
+  <path fill="#e49b0c" d="M315 215v40H205v-40l55-12.337L315 215z" class="colore40c57 svgShape"></path>
+  <path fill="#ffb729" d="M315 215H205V100c0-30.37 24.62-55 55-55 30.366 0 55 24.619 55 55v115z" class="colorff884d svgShape"></path>
+  <circle cx="260" cy="150" r="25" fill="#ffffff" class="colore3f5ff svgShape"></circle>
+</svg>

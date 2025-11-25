@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="2881899">
+  <path fill="#8e6e2e" d="M410 280v180H110V280h300z" class="color8e572e svgShape"></path>
+  <path fill="#f0e2c5" d="M120 180h50v40h-50z" class="colorc5e6f0 svgShape"></path>
+  <path fill="#ffb729" d="M360 140c42.67 0 75.359 37.834 69.28 80H290.72c-6.09-42.239 26.689-80 69.28-80z" class="colorc6ea4b svgShape"></path>
+  <circle cx="360" cy="100" r="40" fill="#ffd278" class="colorffe278 svgShape"></circle>
+  <path fill="#ffdd99" d="m350 370-90 50-90-50 90-50z" class="color99ccff svgShape"></path>
+  <path fill="#424242" d="M410 280h60v180h-60zM50 280h60v180H50z" class="color5c3629 svgShape"></path>
+  <path fill="#c19b4f" d="M510 220v60H10v-60h500z" class="colorc17d4f svgShape"></path>
+  <path fill="#ffffff" d="M220 80v100H70V80h150z" class="colore3f5ff svgShape"></path>
+  <path d="M470 465H50a5 5 0 0 1-5-5V280a5 5 0 1 1 10 0v175h410V280a5 5 0 1 1 10 0v180a5 5 0 0 1-5 5z" fill="#000000" class="color000000 svgShape"></path>
+  <path d="M260 425c-.836 0-1.673-.21-2.428-.629l-90-50a5 5 0 0 1 0-8.742l90-50a5.004 5.004 0 0 1 4.856 0l90 50a5.002 5.002 0 0 1 0 8.742l-90 50A5.003 5.003 0 0 1 260 425zm-79.705-55L260 414.28 339.705 370 260 325.72 180.295 370zM410 465a5 5 0 0 1-5-5V280a5 5 0 1 1 10 0v180a5 5 0 0 1-5 5zm-300 0a5 5 0 0 1-5-5V280a5 5 0 1 1 10 0v180a5 5 0 0 1-5 5zm180.72-240H170a5 5 0 1 1 0-10h120.72a5 5 0 1 1 0 10z" fill="#000000" class="color000000 svgShape"></path>
+  <path d="M510 285H10a5 5 0 0 1-5-5v-60a5 5 0 0 1 5-5h110a5 5 0 1 1 0 10H15v50h490v-50h-75.72a5 5 0 1 1 0-10H510a5 5 0 0 1 5 5v60a5 5 0 0 1-5 5zM360 145c-24.813 0-45-20.187-45-45s20.187-45 45-45 45 20.187 45 45-20.187 45-45 45zm0-80c-19.299 0-35 15.701-35 35s15.701 35 35 35 35-15.701 35-35-15.701-35-35-35z" fill="#000000" class="color000000 svgShape"></path>
+  <path d="M429.28 225H290.72a5 5 0 0 1-4.949-4.286A75.43 75.43 0 0 1 285 210c0-41.355 33.645-75 75-75s75 33.645 75 75c0 3.561-.26 7.165-.772 10.714A4.998 4.998 0 0 1 429.28 225zm-134.086-10h129.611c.129-1.669.194-3.34.194-5 0-35.841-29.159-65-65-65s-65 29.159-65 65c.001 1.66.066 3.331.195 5zM220 185h-50a5 5 0 1 1 0-10h45V85H75v90h45a5 5 0 1 1 0 10H70a5 5 0 0 1-5-5V80a5 5 0 0 1 5-5h150a5 5 0 0 1 5 5v100a5 5 0 0 1-5 5z" fill="#000000" class="color000000 svgShape"></path>
+  <path d="M170 225h-50a5 5 0 0 1-5-5v-40a5 5 0 0 1 5-5h50a5 5 0 0 1 5 5v40a5 5 0 0 1-5 5zm-45-10h40v-30h-40v30z" fill="#000000" class="color000000 svgShape"></path>
+</svg>

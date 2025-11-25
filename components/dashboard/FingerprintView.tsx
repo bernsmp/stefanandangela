@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, Zap, Lightbulb, BookOpen, Brain, X } from 'lucide-react';
 import { PatternCard, PatternType } from './PatternCard';
 import { FingerprintData, FingerprintSection } from '@/lib/data-parser';
+import Image from 'next/image';
 
 interface FingerprintViewProps {
   data: FingerprintData;
@@ -36,7 +37,33 @@ const typeFilters = [
 function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedPattern[] {
   const patterns: ExtractedPattern[] = [];
   let currentType: PatternType = 'procedural';
-  let patternId = 0;
+  const seenPatternNames = new Set<string>();
+
+  // First, try to extract patterns from table format (Angela's format)
+  function extractFromTable(content: string): ExtractedPattern[] {
+    const tablePatterns: ExtractedPattern[] = [];
+    // Match table rows with pattern data: | # | Pattern Name | Category | Self-Reported? |
+    const tableRowRegex = /\|\s*(\d+)\s*\|\s*([^|]+)\s*\|\s*(Procedural|Conditional|Declarative|Metacognitive)\s*\|/gi;
+    let match;
+    
+    while ((match = tableRowRegex.exec(content)) !== null) {
+      const id = parseInt(match[1]);
+      const name = match[2].trim();
+      const category = match[3].toLowerCase() as PatternType;
+      const nameKey = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+      
+      if (!seenPatternNames.has(nameKey)) {
+        seenPatternNames.add(nameKey);
+        tablePatterns.push({
+          id,
+          name,
+          type: category,
+          description: `${name} - ${category} pattern identified through behavioral analysis.`,
+        });
+      }
+    }
+    return tablePatterns;
+  }
 
   function processSection(section: FingerprintSection, depth: number = 0) {
     const titleLower = section.title.toLowerCase();
@@ -46,37 +73,46 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
     else if (titleLower.includes('conditional')) currentType = 'conditional';
     else if (titleLower.includes('declarative')) currentType = 'declarative';
     else if (titleLower.includes('metacognitive')) currentType = 'metacognitive';
-    // Also detect from common section structures
     else if (titleLower.includes('operating system') || titleLower.includes('execution')) currentType = 'procedural';
     else if (titleLower.includes('decision') || titleLower.includes('information')) currentType = 'conditional';
     else if (titleLower.includes('knowledge') || titleLower.includes('mental model')) currentType = 'declarative';
     else if (titleLower.includes('blind spot') || titleLower.includes('self-aware')) currentType = 'metacognitive';
 
+    // Check for table-formatted patterns (Angela's format)
+    if (section.content.includes('| # | Pattern Name |') || 
+        section.content.includes('Pattern Name | Category')) {
+      const tablePatterns = extractFromTable(section.content);
+      patterns.push(...tablePatterns);
+    }
+
     // Check if this is a pattern - support multiple formats
     const patternMatch = section.title.match(/PATTERN\s*(\d+):\s*(.+)/i) ||
                         section.title.match(/Pattern\s*(\d+):\s*The\s+(.+)/i) ||
                         section.title.match(/Pattern\s*(\d+)\s*[:\-–]\s*(.+)/i) ||
-                        section.title.match(/Pattern\s*(\d+)\s+\(([^)]+)\)/i) ||
-                        (section.title.includes('Pattern') && section.title.match(/(.+)/));
+                        section.title.match(/Pattern\s*(\d+)\s+\(([^)]+)\)/i);
 
-    // Also check content for pattern references
-    const contentPatternMatch = section.content.match(/Pattern\s*(\d+)\s*[:\(]/i);
+    // Skip generic "Pattern" matches and section headers that aren't actual patterns
+    const isGenericSection = titleLower.includes('observed') || 
+                            titleLower.includes('self-reported') ||
+                            titleLower.includes('all 20') ||
+                            titleLower.includes('mapped to');
 
-    if ((patternMatch || contentPatternMatch) && section.content.length > 50) {
-      patternId++;
-      
+    if (patternMatch && section.content.length > 50 && !isGenericSection) {
       // Extract pattern name - handle different formats
-      let patternName = '';
-      if (patternMatch) {
-        patternName = patternMatch[2] || patternMatch[1] || section.title;
-      } else {
-        // Try to extract name from section title or content
-        const nameMatch = section.title.match(/(?:Pattern\s*\d+\s*)?[:\-–]?\s*(.+)/i);
-        patternName = nameMatch ? nameMatch[1].trim() : section.title;
-      }
+      let patternName = patternMatch[2] || patternMatch[1] || section.title;
       
       // Clean up the pattern name
       patternName = patternName.replace(/^\*\*|\*\*$/g, '').replace(/^The\s+/i, '').trim();
+      
+      // Create a normalized key for duplicate detection
+      const nameKey = patternName.toLowerCase().replace(/[^a-z0-9]/g, '');
+      
+      // Skip if we've already seen this pattern
+      if (seenPatternNames.has(nameKey)) {
+        section.subsections?.forEach(sub => processSection(sub, depth + 1));
+        return;
+      }
+      seenPatternNames.add(nameKey);
       
       // Extract description
       const descMatch = section.content.match(/\*\*Pattern Description:\*\*\s*([^*]+)/i) ||
@@ -94,13 +130,15 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
         : undefined;
 
       // Extract evidence quote
-      const evidenceMatch = section.content.match(/Stefan.*?:\s*[""]([^""]+)[""]|>"([^"]+)"/i);
+      const evidenceMatch = section.content.match(/Stefan.*?:\s*[""]([^""]+)[""]|>"([^"]+)"/i) ||
+                           section.content.match(/Angela.*?:\s*[""]([^""]+)[""]|>"([^"]+)"/i);
       const evidenceQuote = evidenceMatch 
         ? (evidenceMatch[1] || evidenceMatch[2])?.trim()
         : undefined;
 
       // Extract frequency data
-      const freqMatch = section.content.match(/\*\*Frequency Data:\*\*\s*([^*\n]+)/i);
+      const freqMatch = section.content.match(/\*\*Frequency Data:\*\*\s*([^*\n]+)/i) ||
+                       section.content.match(/(\d+%[^.\n]*)/i);
       const frequencyData = freqMatch ? freqMatch[1].trim() : undefined;
 
       // Extract strategic value
@@ -111,8 +149,11 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
       const blindMatch = section.content.match(/\*\*(?:Blind Spot|Cost|Risk).*?:\*\*\s*([^*]+?)(?=\*\*|$)/is);
       const blindSpotRisk = blindMatch ? blindMatch[1].trim().split('\n')[0] : undefined;
 
+      // Use original pattern number from match, or generate one
+      const patternNum = patternMatch[1] ? parseInt(patternMatch[1]) : patterns.length + 1;
+
       patterns.push({
-        id: patternId,
+        id: patternNum,
         name: patternName || section.title,
         type: currentType,
         description,
@@ -129,6 +170,13 @@ function extractPatternsFromSections(sections: FingerprintSection[]): ExtractedP
   }
 
   sections.forEach(section => processSection(section));
+  
+  // Sort by ID and re-assign unique sequential IDs to avoid React key conflicts
+  patterns.sort((a, b) => a.id - b.id);
+  patterns.forEach((p, index) => {
+    p.id = index + 1;
+  });
+  
   return patterns;
 }
 
@@ -194,9 +242,21 @@ export const FingerprintView: React.FC<FingerprintViewProps> = ({
             </span>
           </div>
           
-          <h2 className="font-display text-4xl lg:text-5xl font-bold text-[var(--grey-900)] mb-4">
-            {name}'s <span style={{ color: accentColor }}>Patterns</span>
-          </h2>
+          <div className="flex items-center gap-6 mb-4">
+            <div className="w-24 h-24 rounded-2xl overflow-hidden">
+              <Image 
+                src={name === 'Stefan' ? '/1StefanBW.png' : '/1AngelaBW.png'} 
+                alt={name} 
+                width={96} 
+                height={96} 
+                className="w-full h-full object-cover"
+                unoptimized
+              />
+            </div>
+            <h2 className="font-display text-4xl lg:text-5xl font-bold text-[var(--grey-900)]">
+              {name}'s <span style={{ color: accentColor }}>Patterns</span>
+            </h2>
+          </div>
           
           <p className="text-lg text-[var(--grey-500)] max-w-2xl">
             {patterns.length} unconscious behavioral patterns identified across{' '}

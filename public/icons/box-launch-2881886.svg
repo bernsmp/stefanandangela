@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" id="2881886">
+  <path fill="#f0e2c5" d="M240 285a5 5 0 0 1-5-5v-60a5 5 0 1 1 10 0v60a5 5 0 0 1-5 5z" class="colorc5e6f0 svgShape"></path>
+  <path fill="#e49b0c" d="M360 210v30h-50v-20l-6.75-20c0-13.923 6.75-26.077 6.75-40 27.508 0 50 22.3 50 50zm-160 10v20h-50v-30c0-27.588 22.382-50 50-50 0 13.923 7.25 26.077 7.25 40L200 220z" class="colore40c57 svgShape"></path>
+  <path fill="#ffc34d" d="M310 180v40H200v-40l55-8.17 55 8.17z" class="colorff4d4d svgShape"></path>
+  <path fill="#c19b4f" d="m260 280 9.667 90L260 460l-80 7.83-80-7.83v-90l50-4.17 42.665-3.165L223.5 325l36.5-45z" class="colorc17d4f svgShape"></path>
+  <path fill="#f0e2c5" d="M280 285a5 5 0 0 1-5-5v-30a5 5 0 1 1 10 0v30a5 5 0 0 1-5 5z" class="colorc5e6f0 svgShape"></path>
+  <path fill="#ffdd99" d="M360 105a5 5 0 0 1-5-5V40a5 5 0 1 1 10 0v60a5 5 0 0 1-5 5zm40 70a5 5 0 0 1-5-5V70a5 5 0 1 1 10 0v100a5 5 0 0 1-5 5zm-240-70a5 5 0 0 1-5-5V40a5 5 0 1 1 10 0v60a5 5 0 0 1-5 5zm-40 70a5 5 0 0 1-5-5V70a5 5 0 1 1 10 0v100a5 5 0 0 1-5 5z" class="color99ccff svgShape"></path>
+  <path fill="#ffb729" d="M310 180H200V65c0-30.37 24.62-55 55-55 30.366 0 55 24.619 55 55v115z" class="colorff884d svgShape"></path>
+  <circle cx="255" cy="115" r="25" fill="#ffffff" class="colore3f5ff svgShape"></circle>
+  <path fill="#8e6e2e" d="M260 460v50H100v-50h160zm160-90v90l-80 7.83-80-7.83V280l38.5 40.83 30 38 41.5 5.5 50 5.67zm-160-90-60 90H40l60-90h160z" class="color8e572e svgShape"></path>
+  <path fill="#000000" d="M420 460v50H260v-50h160z" class="color5c3629 svgShape"></path>
+  <path fill="#c19b4f" d="m420 280 60 90H320l-60-90h160z" class="colorc17d4f svgShape"></path>
+</svg>

@@ -125,11 +125,14 @@ export const PatternCard: React.FC<PatternCardProps> = ({
 
         {/* Frequency indicator bar */}
         {frequencyData && (
-          <div className="mt-4 pt-4 border-t border-[var(--grey-100)]">
-            <div className="flex items-center justify-between text-xs text-[var(--grey-400)] mb-2">
-              <span>Frequency</span>
-              <span className="font-mono">{frequencyData}</span>
+          <div className="mt-4 pt-4 border-t border-[var(--grey-200)]">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs font-semibold text-[var(--grey-500)] uppercase tracking-wide">Frequency</span>
+              <div className="flex-1 h-px bg-[var(--grey-200)]" />
             </div>
+            <p className="text-xs text-[var(--grey-600)] bg-[var(--grey-50)] border border-[var(--grey-200)] px-3 py-2 rounded-lg font-mono leading-relaxed mb-3">
+              {frequencyData}
+            </p>
             <div className="strength-bar">
               <motion.div
                 className="strength-fill"
